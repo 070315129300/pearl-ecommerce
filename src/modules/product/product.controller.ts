@@ -42,3 +42,21 @@ export const deleteProduct = catchAsync(async (req: Request, res: Response) => {
     res.status(httpStatus.NO_CONTENT).send();
   }
 });
+
+export const searchProduct = catchAsync(async (req: Request, res: Response) => {
+  console.log("djnkj");
+  
+  const query = req.query['search']; // Get the search query from URL params
+
+  if (typeof query === 'string') {
+    
+    // Call searchProduct with the query string
+    const products = await productService.searchProduct(query);
+
+    // Return the list of products found
+    res.send(products);
+  } else {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid search query');
+  }
+});
+

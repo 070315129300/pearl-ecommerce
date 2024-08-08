@@ -55,3 +55,9 @@ export const deleteProduct = {
     productId: Joi.string().custom(objectId),
   }),
 };
+
+export const searchProduct = {
+  params: Joi.object().keys({
+    search: Joi.string().custom(objectId),
+  }),
+};

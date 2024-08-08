@@ -23,6 +23,16 @@ const productSchema = new Schema<IProductDoc>(
       type: String,
       required: true,
     },
+    subcategory: {
+      type: String,
+     // enum: Object.values(subcategory),
+      required: true,
+    },
+    subsubcategory: {
+      type: String,
+      //enum: Object.values(subsubcategory),
+      required: true,
+    },
     storeId: {
       type: Schema.Types.ObjectId,
       ref: 'Store',
@@ -32,16 +42,22 @@ const productSchema = new Schema<IProductDoc>(
       type: String,
       required: true,
     },
+    brand: {
+      type: String,
+    },
+    
     stock: {
       type: Number,
       required: true,
       min: 0,
     },
+   
   },
   {
     timestamps: true,
   }
 );
+
 
 // add plugin that converts mongoose to json
 productSchema.plugin(toJSON);

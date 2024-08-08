@@ -8,13 +8,15 @@ const router: Router = express.Router();
 router
     .route('/')
     .post(auth('manageProducts'), validate(productValidation.createProduct), productController.createProduct)
-    .get(auth('getProducts'), validate(productValidation.getProducts), productController.getProducts);
+    .get(auth('getProducts'), validate(productValidation.getProducts), productController.getProducts)
+    .post(auth('searchProducts'), validate(productValidation.searchProduct), productController.searchProduct);
 
 router
     .route('/:productId')
     .get(auth('getProducts'), validate(productValidation.getProduct), productController.getProduct)
     .patch(auth('manageProducts'), validate(productValidation.updateProduct), productController.updateProduct)
     .delete(auth('manageProducts'), validate(productValidation.deleteProduct), productController.deleteProduct);
+    
 
 export default router;
 
