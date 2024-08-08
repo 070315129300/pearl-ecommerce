@@ -9,9 +9,12 @@ import { sendSuccessResponse, sendErrorResponse } from '../utils/response';
 
 
 export const register = catchAsync(async (req: Request, res: Response) => {
+
   const user = await userService.registerUser(req.body);
   const tokens = await tokenService.generateAuthTokens(user);
-  res.status(httpStatus.CREATED).send({ user, tokens });
+      sendSuccessResponse(res, httpStatus.CREATED, "user successfully Signed up", { user, tokens });
+
+ // res.status(httpStatus.CREATED).send({ user, tokens });
 });
 
 export const login = catchAsync(async (req: Request, res: Response) => {
