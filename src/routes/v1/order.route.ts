@@ -2,7 +2,7 @@ import express, { Router } from 'express';
 import { validate } from '../../modules/validate';
 import { auth } from '../../modules/auth';
 
-import { orderController, orderValidation, orderService } from '../../modules/order';
+import { orderController, orderValidation } from '../../modules/order';
 
 const router: Router = express.Router();
 
