@@ -7,11 +7,28 @@ import pick from '../utils/pick';
 import { IOptions } from '../paginate/paginate';
 import * as orderService from './order.service';
 
+// Controller to create an order and initiate payment
 export const createOrder = catchAsync(async (req: Request, res: Response) => {
-  const order = await orderService.createOrder(req.body);
-  res.status(httpStatus.CREATED).send(order);
+  const orderBody = req.body;
+  
+  // Initiate payment and get the response from Paystack
+  const paymentInitiation = await orderService.createOrder(orderBody);
+  
+  // Respond with the payment initiation data
+  res.status(httpStatus.CREATED).send(paymentInitiation);
 });
 
+// Controller to verify payment and create the order
+export const verifyAndCreateOrder = catchAsync(async (req: Request, res: Response) => {
+  const { reference } = req.query;
+  const orderBody = req.body;
+
+  // Verify payment and create order if successful
+  const order = await orderService.verifyAndCreateOrder(orderBody, reference as string);
+
+  // Respond with the created order
+  res.status(httpStatus.CREATED).send(order);
+});
 export const getOrders = catchAsync(async (req: Request, res: Response) => {
   const filter = pick(req.query, ['name', 'ownerId']);
   const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page', 'projectBy']);

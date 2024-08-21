@@ -34,10 +34,11 @@ const orderSchema = new Schema<IOrderDoc>(
         },
       },
     ],
-    totalAmount: {
+    amount: {
       type: Number,
       required: true,
     },
+    
     paymentMethod: {
       type: String,
       enum: ['card', 'paypal', 'bank_transfer'],

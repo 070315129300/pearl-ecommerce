@@ -11,7 +11,8 @@ export interface IOrder {
   orderId: string;
   userId: mongoose.Types.ObjectId;
   items: IOrderItem[];
-  totalAmount: number;
+  amount: number;
+  email: string;
   paymentMethod: 'card' | 'paypal' | 'bank_transfer';
   paymentStatus: 'pending' | 'completed' | 'failed';
   shippingAddress: string;

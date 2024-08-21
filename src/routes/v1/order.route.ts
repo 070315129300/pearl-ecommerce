@@ -1,8 +1,8 @@
 import express, { Router } from 'express';
 import { validate } from '../../modules/validate';
 import { auth } from '../../modules/auth';
-// import { orderController, orderValidation } from '../../modules/order';
-import { orderController, orderValidation } from '../../modules/order';
+
+import { orderController, orderValidation, orderService } from '../../modules/order';
 
 const router: Router = express.Router();
 
@@ -17,8 +17,6 @@ router
     .patch(auth('manageSellers'), validate(orderValidation.updateOrder), orderController.updateOrder)
     .delete(auth('manageSellers'), validate(orderValidation.deleteOrder), orderController.deleteOrder);
 
-// router.post('/pay', auth(), validate(orderValidation.login), orderController.pay);
-
-// router.post('/order-webhook', auth(), validate(orderValidation.login), orderController['order-webhook']);
+router.post('/verify-and-create-order', orderController.verifyAndCreateOrder);
 
 export default router;
