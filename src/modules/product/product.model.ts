@@ -23,7 +23,7 @@ const productSchema = new Schema<IProductDoc>(
       type: String,
       required: true,
     },
-    subcategory: {
+    subCategory: {
       type: String,
      // enum: Object.values(subcategory),
       required: true,

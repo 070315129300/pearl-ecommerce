@@ -13,20 +13,37 @@ export const createUser = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const getUsers = catchAsync(async (req: Request, res: Response) => {
-  const filter = pick(req.query, ['name', 'role']);
+  const filter = pick(req.query, ['name', 'role','userId']);
   const options: IOptions = pick(req.query, ['sortBy', 'limit', 'page', 'projectBy']);
   const result = await userService.queryUsers(filter, options);
   res.send(result);
 });
 
+// export const getUser = catchAsync(async (req: Request, res: Response) => {
+//   if (typeof req.params['userId'] === 'string') {
+//     const user = await userService.getUserById(new mongoose.Types.ObjectId(req.params['userId']));
+//     if (!user) {
+//       throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+//     }
+//     res.send(user);
+//   }
+// });
+
 export const getUser = catchAsync(async (req: Request, res: Response) => {
-  if (typeof req.params['userId'] === 'string') {
-    const user = await userService.getUserById(new mongoose.Types.ObjectId(req.params['userId']));
-    if (!user) {
-      throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-    }
-    res.send(user);
+  const { userId, email } = req.params;
+
+  let user;
+  if (userId && typeof userId === 'string') {
+    user = await userService.getUserById(new mongoose.Types.ObjectId(userId));
+  } else if (email && typeof email === 'string') {
+    user = await userService.getUserByEmail(email);
   }
+
+  if (!user) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+  }
+
+  res.send(user);
 });
 
 export const updateUser = catchAsync(async (req: Request, res: Response) => {
@@ -39,6 +56,5 @@ export const updateUser = catchAsync(async (req: Request, res: Response) => {
 export const deleteUser = catchAsync(async (req: Request, res: Response) => {
   if (typeof req.params['userId'] === 'string') {
     await userService.deleteUserById(new mongoose.Types.ObjectId(req.params['userId']));
-    res.status(httpStatus.NO_CONTENT).send();
-  }
+ res.status(httpStatus.OK).send({ message: 'User deleted successfully' });  }
 });

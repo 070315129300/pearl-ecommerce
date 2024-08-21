@@ -1,21 +1,20 @@
 import express, { Router } from 'express';
 import { validate } from '../../modules/validate';
-import { authValidation, authController, auth } from '../../modules/auth';
-import { productController, productValidation } from '../../modules/product';
+import {  auth } from '../../modules/auth';
+import { paymentController, paymentValidation } from '../../modules/payment';
 
 const router: Router = express.Router();
 
-router.post('/register', validate(authValidation.register), authController.register);
-router.post('/login', validate(authValidation.login), authController.login);
-router.post('/logout', validate(authValidation.logout), authController.logout);
-router.post('/refresh-tokens', validate(authValidation.refreshTokens), authController.refreshTokens);
-router.post('/forgot-password', validate(authValidation.forgotPassword), authController.forgotPassword);
-router.post('/reset-password', validate(authValidation.resetPassword), authController.resetPassword);
-router.post('/send-verification-email', auth(), authController.sendVerificationEmail);
-router.post('/verify-email', validate(authValidation.verifyEmail), authController.verifyEmail);
-router.post('/searchProducts', validate(productValidation.searchProduct), productController.searchProduct);
+router
+    .route('/')
+    .post(auth('managePayments'), validate(paymentValidation.createPayment), paymentController.createPayment)
+    .get(auth('getPayments'), validate(paymentValidation.getPayments), paymentController.getPayments);
 
-
+router
+    .route('/:paymentId')
+    .get(auth('getPayments'), validate(paymentValidation.getPayment), paymentController.getPayment)
+    .patch(auth('managePayments'), validate(paymentValidation.updatePayment), paymentController.updatePayment)
+    .delete(auth('managePayments'), validate(paymentValidation.deletePayment), paymentController.deletePayment);
 
 export default router;
 

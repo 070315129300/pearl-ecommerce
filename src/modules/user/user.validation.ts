@@ -30,6 +30,8 @@ const createUserBody: Record<keyof NewCreatedUser, any> = {
     bankName: Joi.string().required(),
   }).required(),
   role: Joi.string().required().valid('user', 'admin', 'seller'),
+   lastseen: Joi.date(),
+      active: Joi.string(),
 };
 
 export const createUser = {
@@ -74,6 +76,7 @@ export const updateUser = {
         state: Joi.string(),
         country: Joi.string(),
         postalCode: Joi.string(),
+        active: Joi.string(),
       }),
       nin: Joi.string().length(11),
       itemToSell: Joi.string().valid('electronics', 'clothing', 'food', 'furniture', 'other'),
@@ -87,6 +90,7 @@ export const updateUser = {
       bankAccount: Joi.object({
         accountNumber: Joi.string().length(10),
         bankName: Joi.string(),
+         
       }),
     })
     .min(1),

@@ -17,7 +17,7 @@ export interface IUser {
     postalCode: string;
   };
   nin: string; // National Identification Number
-  itemToSell: 'electronics' | 'clothing' | 'food' | 'furniture' | 'other';
+  itemToSell: 'watch' | 'clothing' | 'shoes' | 'other';
   businessName?: string;
   socialMediaLinks: {
     facebook?: string;
@@ -33,6 +33,8 @@ export interface IUser {
   notificationToken: string;
   isEmailVerified: boolean;
   verificationStatus: boolean;
+  lastseen: Date;
+  active: string;
 }
 
 export interface IUserDoc extends IUser, Document {

@@ -8,6 +8,8 @@ const registerBody: Record<keyof NewRegisteredUser, any> = {
   lastName: Joi.string().required(),
   email: Joi.string().required().email(),
   password: Joi.string().required().custom(password),
+   lastseen: Joi.date(),
+      active: Joi.string(),
 };
 
 export const register = {

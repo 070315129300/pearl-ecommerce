@@ -49,6 +49,7 @@ export const getUserById = async (id: mongoose.Types.ObjectId): Promise<IUserDoc
 
 /**
  * Get user by email
+ * getUserByEmail
  * @param {string} email
  * @returns {Promise<IUserDoc | null>}
  */
@@ -115,7 +116,8 @@ export const oauthSignup = async (userReq: any) => {
     lastName,
     email,
     role,
-    platform: "google"
+    platform: "google",
+  
   })
 
   return await User.create(user);

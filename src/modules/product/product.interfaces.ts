@@ -6,9 +6,12 @@ export interface IProduct {
   description: string;
   price: number;
   category: string;
+  subCategory: string;
+  subsubcategory: string;
   storeId: mongoose.Types.ObjectId;
   imageUrl: string;
   stock: number;
+  brand: string;
 }
 
 export interface IProductDoc extends IProduct, Document { }

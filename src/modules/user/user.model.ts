@@ -61,7 +61,7 @@ const userSchema = new Schema<IUserDoc>(
     },
     itemToSell: {
       type: String,
-      enum: ['electronics', 'clothing', 'food', 'furniture', 'other'], // Add more categories as needed
+      enum: ['watch', 'clothing', 'shoes', 'other'], // Add more categories as needed
     },
     businessName: {
       type: String,
@@ -89,6 +89,14 @@ const userSchema = new Schema<IUserDoc>(
     verificationStatus: {
       type: Boolean,
       default: false,
+    },
+     lastseen: {
+        type: Date,
+        default: Date.now, // Sets the default to the current date and time
+    },
+      active: {
+        type: String,
+        default: 'yes', // Sets the default to the current date and time
     },
   },
   {

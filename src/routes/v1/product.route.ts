@@ -8,8 +8,8 @@ const router: Router = express.Router();
 router
     .route('/')
     .post(auth('manageProducts'), validate(productValidation.createProduct), productController.createProduct)
-    .get(auth('getProducts'), validate(productValidation.getProducts), productController.getProducts)
-    .post(auth('searchProducts'), validate(productValidation.searchProduct), productController.searchProduct);
+    .get(auth('getProducts'), validate(productValidation.getProducts), productController.getProducts);
+
 
 router
     .route('/:productId')

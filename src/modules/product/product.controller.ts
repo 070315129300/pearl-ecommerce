@@ -44,11 +44,11 @@ export const deleteProduct = catchAsync(async (req: Request, res: Response) => {
 });
 
 export const searchProduct = catchAsync(async (req: Request, res: Response) => {
-  console.log("djnkj");
   
-  const query = req.query['search']; // Get the search query from URL params
+  const query = req.body.search; // Get the search query from URL params
+console.log('Search Query:', query); // Log the query to the console
 
-  if (typeof query === 'string') {
+  if (typeof query == 'string') {
     
     // Call searchProduct with the query string
     const products = await productService.searchProduct(query);
@@ -56,7 +56,7 @@ export const searchProduct = catchAsync(async (req: Request, res: Response) => {
     // Return the list of products found
     res.send(products);
   } else {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid search query');
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid Search Query');
   }
 });
 

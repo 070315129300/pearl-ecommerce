@@ -2,8 +2,11 @@ import express, { Router } from 'express';
 import authRoute from './auth.route';
 import docsRoute from './swagger.route';
 import userRoute from './user.route';
-import productRoute from './product.route'
-import storeRoute from './store.route'
+import productRoute from './product.route';
+import storeRoute from './store.route';
+import categoriesRoute from './categories.route';
+import paymentRoute from './payment.route';
+import orderRoute from './order.route';
 
 import config from '../../config/config';
 
@@ -31,7 +34,18 @@ const defaultIRoute: IRoute[] = [
     path: '/stores',
     route: storeRoute,
   },
-
+  {
+    path: '/categories',
+    route: categoriesRoute,
+  },
+    {
+    path: '/payment',
+    route: paymentRoute,
+  },
+     {
+    path: '/order',
+    route: orderRoute,
+  },
   {
     path: '/docs',
     route: docsRoute,
