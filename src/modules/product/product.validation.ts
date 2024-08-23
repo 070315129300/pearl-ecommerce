@@ -13,6 +13,8 @@ const createProductBody: Record<keyof NewProduct, any> = {
   brand: Joi.string().required(),
   subCategory: Joi.string(),
   subsubcategory: Joi.string(),
+  likes: Joi.string(),
+
 
 };
 
@@ -31,7 +33,9 @@ export const getProducts = {
     projectBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
-      brand: Joi.string(),
+    brand: Joi.string(),
+    likes: Joi.string(),
+
 
   }),
 };
@@ -57,6 +61,8 @@ export const updateProduct = {
       imageUrl: Joi.string().uri(),
       stock: Joi.number().integer().min(0),
       brand: Joi.string(),
+      likes: Joi.string(),
+
     })
     .min(1),
 };

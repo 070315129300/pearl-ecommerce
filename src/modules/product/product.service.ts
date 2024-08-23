@@ -38,25 +38,6 @@ export const deleteProductById = async (productId: mongoose.Types.ObjectId): Pro
   return product;
 };
 
-// export const searchProduct = async (query: string): Promise<IProductDoc[]> => {
-//   if (!query || typeof query !== 'string') {
-//     throw new ApiError(httpStatus.BAD_REQUEST, 'Invalid search query');
-//   }
-//   // Perform a case-insensitive search for the query in the product name or description
-//   const products = await Product.find({
-//     $or: [
-//       { name: { $regex: query, $options: 'i' } }, // Search by name (case-insensitive)
-//       { description: { $regex: query, $options: 'i' } } // Search by description (case-insensitive)
-//     ]
-//   });
-//   // If no products are found, throw an ApiError
-//   if (products.length === 0) {
-//     throw new ApiError(httpStatus.NOT_FOUND, 'No products found');
-//   }
-//   // Return the list of found products
-//   return products;
-// };
-
 export const searchProduct = async (query: string): Promise<IProductDoc[]> => {
   // Perform a case-insensitive search for the query in the product name or description
   return Product.find({
@@ -65,4 +46,37 @@ export const searchProduct = async (query: string): Promise<IProductDoc[]> => {
       { description: { $regex: query, $options: 'i' } } // Search by description (case-insensitive)
     ]
   });
+};
+export const likeProduct = async (productId: mongoose.Types.ObjectId, userId: string) => {
+  const product = await Product.findById(productId);
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+  }
+
+  if (!product.likes.includes(userId)) {
+    product.likes.push(userId);
+    await product.save();
+  }
+
+  return product;
+};
+
+export const unlikeProduct = async (productId: mongoose.Types.ObjectId, userId: string) => {
+  const product = await Product.findById(productId);
+  if (!product) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+  }
+
+  if (product.likes.includes(userId)) {
+    product.likes = product.likes.filter((id) => id.toString() !== userId);
+    await product.save();
+  }
+
+  return product;
+};
+
+export const getLikedProductsByUserId = async (userId: string) => {
+  // Fetch products liked by the user
+  const products = await Product.find({ likes: userId });
+  return products;
 };

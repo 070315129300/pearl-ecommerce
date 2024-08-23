@@ -40,7 +40,9 @@ export const sendEmail = async (to: string, subject: string, text: string, html:
 export const sendResetPasswordEmail = async (to: string, token: string): Promise<void> => {
   const subject = 'Reset password';
   // replace this url with the link to the reset password page of your front-end app
-  const resetPasswordUrl = `http://link-to-app/reset-password?token=${token}`;
+  // const resetPasswordUrl = `http://link-to-app/reset-password?token=${token}`;
+  // const resetPasswordUrl = `http://161.35.114.79/v1/auth/reset-password?token=${token}`;
+   const resetPasswordUrl = `http://localhost:3000/v1/auth/reset-password?token=${token}`;
   const text = `Hi,
   To reset your password, click on this link: ${resetPasswordUrl}
   If you did not request any password resets, then ignore this email.`;
@@ -48,7 +50,7 @@ export const sendResetPasswordEmail = async (to: string, token: string): Promise
   <p>To reset your password, click on this link: ${resetPasswordUrl}</p>
   <p>If you did not request any password resets, please ignore this email.</p>
   <p>Thanks,</p>
-  <p><strong>Team</strong></p></div>`;
+  <p><strong>Pearl Ecommerce</strong></p></div>`;
   await sendEmail(to, subject, text, html);
 };
 

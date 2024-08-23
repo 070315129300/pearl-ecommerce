@@ -27,6 +27,7 @@ const createOrderBody: Record<keyof NewOrder, any> = {
   orderStatus: Joi.string().valid('processing', 'shipped', 'delivered', 'canceled').required(),
   deliveryDate: Joi.date().optional(),
   trackingNumber: Joi.string().optional(),
+  reference: Joi.string(),
   notes: Joi.string().optional(),
 };
 

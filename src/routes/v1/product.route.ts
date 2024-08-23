@@ -18,6 +18,11 @@ router
     .delete(auth('manageProducts'), validate(productValidation.deleteProduct), productController.deleteProduct);
     
 
+router.post('/:productId/like', auth(), productController.likeProduct);
+router.post('/:productId/unlike', auth(), productController.unlikeProduct);
+//router.get('/liked', auth(), productController.getLikedProducts);
+//router.get('/:productId/likes', productController.getTotalLikes);
+
 export default router;
 
 /**

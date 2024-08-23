@@ -16,6 +16,7 @@ export interface IOrder {
   paymentMethod: 'card' | 'paypal' | 'bank_transfer';
   paymentStatus: 'pending' | 'completed' | 'failed';
   shippingAddress: string;
+  reference: string;
   billingAddress: {
     address: string;
     state: string;

@@ -60,3 +60,51 @@ console.log('Search Query:', query); // Log the query to the console
   }
 });
 
+// export const getTotalLikes = catchAsync(async (req: Request, res: Response) => {
+//   const { productId } = req.params;
+
+//   const product = await Product.findById(productId);
+//   if (!product) {
+//     throw new ApiError(httpStatus.NOT_FOUND, 'Product not found');
+//   }
+
+//   res.status(200).send({ totalLikes: product.likes.length });
+// });
+
+//Like a product
+export const likeProduct = catchAsync(async (req: Request, res: Response) => {
+  const { productId } = req.params; // Correctly destructuring productId from req.params
+  const userId = req.user.id;
+
+  if (typeof productId === 'string') {
+    const product = await productService.likeProduct(new mongoose.Types.ObjectId(productId), userId);
+    res.status(200).send({ message: 'Product liked', product });
+  } else {
+    res.status(400).send({ message: 'Invalid product ID' });
+  }
+});
+
+// Unlike a product
+export const unlikeProduct = catchAsync(async (req: Request, res: Response) => {
+  const { productId } = req.params; // Correctly destructuring productId from req.params
+  const userId = req.user.id;
+
+  if (typeof productId === 'string') {
+    const product = await productService.unlikeProduct(new mongoose.Types.ObjectId(productId), userId);
+    res.status(200).send({ message: 'Product unliked', product });
+  } else {
+    res.status(400).send({ message: 'Invalid product ID' });
+  }
+});
+
+// Get liked products
+export const getLikedProducts = catchAsync(async (req: Request, res: Response) => {
+  const userId = req.user.id;
+
+  if (typeof userId === 'string') {
+    const products = await productService.getLikedProductsByUserId(userId);
+    res.status(200).send({ likedProducts: products });
+  } else {
+    res.status(400).send({ message: 'Invalid user ID' });
+  }
+});

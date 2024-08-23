@@ -12,6 +12,7 @@ export interface IProduct {
   imageUrl: string;
   stock: number;
   brand: string;
+  likes: string[]; // Array of user IDs who liked the product
 }
 
 export interface IProductDoc extends IProduct, Document { }

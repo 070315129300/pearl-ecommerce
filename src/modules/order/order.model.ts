@@ -78,6 +78,9 @@ const orderSchema = new Schema<IOrderDoc>(
     trackingNumber: {
       type: String,
     },
+     reference: {
+      type: String,
+    },
     notes: {
       type: String,
     },

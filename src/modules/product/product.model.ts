@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import mongoose, { Schema, model } from 'mongoose';
 import toJSON from '../toJSON/toJSON';
 import paginate from '../paginate/paginate';
 import { IProductDoc, IProductModel } from './product.interfaces';
@@ -51,7 +51,7 @@ const productSchema = new Schema<IProductDoc>(
       required: true,
       min: 0,
     },
-   
+    likes: [],
   },
   {
     timestamps: true,
